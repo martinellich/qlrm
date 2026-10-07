@@ -33,7 +33,7 @@ jobs:
                         ${{ runner.os }}-maven-
 
             -   name: Maven Deploy
-                run: mvn deploy -Pdeploy
+                run: ./mvnw deploy -Pdeploy
                 env:
                     MAVEN_USERNAME: ${{ secrets.MAVEN_USERNAME }}
                     MAVEN_PASSWORD: ${{ secrets.MAVEN_PASSWORD }}

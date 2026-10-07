@@ -9,6 +9,10 @@ updates:
     directory: "/"
     schedule:
       interval: "daily"
+    ignore:
+      # Maven 3.10 adds maven-metadata-local.xml to the Central bundle, which the Central Portal rejects
+      - dependency-name: "org.apache.maven:apache-maven"
+        versions: [ ">= 3.10.0" ]
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
