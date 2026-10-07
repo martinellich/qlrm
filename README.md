@@ -4,20 +4,20 @@ In JPA there is no Constructor Expression for native SQL queries. QLRM fills the
 And because the implementation was quite easy there is an implementation for JDBC resultsets as well.
 
 ### But what about JPA 2.1 and the ConstructorResult?
-Read more: https://github.com/simasch/qlrm/blob/master/ConstructorResult.md
+Read more: https://github.com/martinellich/qlrm/blob/main/ConstructorResult.md
 
 ## Maven Dependency
 QLRM is available in Maven Central
 
 **Important Notices** 
 1. The groupId has changed from ```ch.simas.qlrm``` to ```org.qlrm```
-2. QLRM from version 4.x.x require Jakarta Persistence 
+2. QLRM from version 4.x.x requires Jakarta Persistence and Java 17
 
 ```xml
 <dependency>
     <groupId>org.qlrm</groupId>
     <artifactId>qlrm</artifactId>
-    <version>4.0.1</version>
+    <version>4.2.0</version>
 </dependency>
 ```
 
@@ -103,7 +103,40 @@ ClassGenerator classGenerator = new ClassGenerator();
 classGenerator.generateFromTables("src/test/java/", "ch.simas.sqlresultmapper.to", "TO", false, con, "EMPLOYEE");
 ```
 
+# Record Generator
+RecordGenerator generates Java records instead of classes.
+
+## Usage
+The parameters are the path, the package name, a suffix and the schema (may be `null`), followed by the database connection
+and one or multiple table names.
+
+```java
+RecordGenerator recordGenerator = new RecordGenerator();
+
+recordGenerator.generateFromTables("src/main/java/", "org.example.to", "TO", null, con, "EMPLOYEE");
+```
+
+Records can also be generated from the result of an arbitrary query:
+
+```java
+ResultSet rs = stmt.executeQuery("SELECT ID, NAME FROM EMPLOYEE");
+recordGenerator.generateFromResultSet("src/main/java/", "org.example.to", "EmployeeWithName", rs);
+```
+
 ## Release Notes
+
+### QLRM 4.2.0
+- New RecordGenerator to generate Java records from database tables or result sets
+- Logging migrated from Log4j to SLF4J and Logback (test scope only, QLRM itself adds no logging dependency)
+- Updated dependencies: Hibernate 7.4, H2 2.5, JUnit 6
+- Publishing moved to the Maven Central Portal
+
+### QLRM 4.0.1
+- Migration to Jakarta Persistence (`jakarta.persistence`) for Spring Boot 3 and Hibernate 6 https://github.com/martinellich/qlrm/issues/30
+- Requires Java 17
+
+### QLRM 3.0.2
+- Fixed mapping of JPA queries that return a single column https://github.com/martinellich/qlrm/issues/16
 
 ### QLRM 3.0.1
 - New method on JdbcQueryExecutor to execute a SQL string. Thank you Severin! https://github.com/72services/qlrm/pull/17
