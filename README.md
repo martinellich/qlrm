@@ -17,7 +17,7 @@ QLRM is available in Maven Central
 <dependency>
     <groupId>org.qlrm</groupId>
     <artifactId>qlrm</artifactId>
-    <version>4.2.0</version>
+    <version>4.2.1</version>
 </dependency>
 ```
 
@@ -125,7 +125,7 @@ recordGenerator.generateFromResultSet("src/main/java/", "org.example.to", "Emplo
 
 ## Release Notes
 
-### QLRM 4.2.0
+### QLRM 4.2.1
 - New RecordGenerator to generate Java records from database tables or result sets
 - Logging migrated from Log4j to SLF4J and Logback (test scope only, QLRM itself adds no logging dependency)
 - Updated dependencies: Hibernate 7.4, H2 2.5, JUnit 6
